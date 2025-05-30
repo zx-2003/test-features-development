@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "accounts",
     "social",
+    "promotions",
 ]
 
 MIDDLEWARE = [
@@ -99,12 +100,15 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yourdbname',
+        'NAME': '',
         'USER': 'root',
-        'PASSWORD': 'yourdbpassword',
+        'PASSWORD': '',
         'HOST': '127.0.0.1', 
         'HOST': 'localhost', 
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS' : {
+            'charset' : 'utf8mb4', #emojis and special chars
+        }
     }
 }
 
@@ -151,3 +155,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWS_CREDENTIALS = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
