@@ -29,4 +29,5 @@ urlpatterns = [
     # anyth that includes api/ redirect to the urls in the api app, then handle from there. 
     path("social/", include("social.urls")),
     path("social/accounts/", include("accounts.urls")),
+    path('promotions/', include('promotions.urls')),
 ]

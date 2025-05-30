@@ -19,4 +19,4 @@ npm install
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 .venv\Scripts\Activate.ps1
 cd backend
-python manage.py listen_telegram
+python manage.py listen_telegram //to run the telegram listener

@@ -9,6 +9,7 @@ import ProfilePage from "./components/ProfilePage";
 import EditProfile from "./components/EditProfile";
 import ExplorePosts from "./pages/ExplorePosts";
 import PublicProfilePage from "./components/PublicProfilePage";
+import Promotion from "./pages/Promotion"
 
 function Logout() {
   localStorage.clear()
@@ -44,6 +45,7 @@ function App() {
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="*" element={<NotFound />}></Route>
         <Route path="/publicProfile/:user_id" element={<ProtectedRoute> <PublicProfilePage /> </ProtectedRoute>}></Route>
+        <Route path="/promotion" element={<Promotion />} />
       </Routes>
     </BrowserRouter>
   )

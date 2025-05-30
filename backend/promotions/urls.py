@@ -4,5 +4,5 @@ from .views import FoodPromotionList
 
 #link later for display
 urlpatterns = [
-    path('api/promotions', FoodPromotionList.as_view(), name='food-promotion-list')
+    path('', FoodPromotionList.as_view(), name='food-promotion-list')
 ]

@@ -17,6 +17,7 @@ function NavigationBar() {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/explore_posts">Explore</Nav.Link>
+            <Nav.Link href="/promotion">Promotions</Nav.Link>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/edit_profile">
