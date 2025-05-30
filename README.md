@@ -35,18 +35,18 @@ Frontend Startup:
   - Send prompts into a temporary telegram channel, formatted as per .env.example's telegram channel
 
 User Experience:
-  Login:
+  - Login:
 
-  Registration:
+  - Registration:
 
-  Home Page:
+  - Home Page:
 
-  Explore Page:
+  - Explore Page:
 
-  Profile Page:
+  - Profile Page:
 
-  Promotions Page:
+  - Promotions Page:
 
-  Food Finder Page:
+  - Food Finder Page:
 
   
