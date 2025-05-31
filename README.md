@@ -14,7 +14,7 @@ Backend Startup:
   - `.venv\Scripts\Activate.ps1`
   - `cd backend`
   - `pip install -r requirements.txt` install all packages
-  - `python.exe -m pip install --upgrade pip` if prompted to`
+  - `python.exe -m pip install --upgrade pip` if prompted to
   - `python manage.py makemigrations`
   - `python manage.py migrate`
   - `python manage.py runserver`
