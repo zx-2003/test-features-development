@@ -14,7 +14,7 @@ Backend Startup:
   - `.venv\Scripts\Activate.ps1`
   - `cd backend`
   - `pip install -r requirements.txt` install all packages
-  - `python.exe -m pip install --upgrade pip` if prompted to
+  - `python.exe -m pip install --upgrade pip` if prompted to`
   - `python manage.py makemigrations`
   - `python manage.py migrate`
   - `python manage.py runserver`
@@ -36,6 +36,26 @@ Frontend Startup:
   - `python manage.py listen_telegram `
   - Enter in your telegram user and 2fa code
   - Send prompts into a temporary telegram channel, formatted as per .env.example's telegram channel. Message format taken from @ https://t.me/kiasufoodies
+
+User guide (app functionality and navigation):
+  Authentication:
+  - Create an account by following the register link
+  - Use the account details to log in, this will be required to access different pages as they are protected
+
+  Post Creation:
+  - Post creation can be done in the home page, which user will be redirected to upon login
+  - User must fill in title and content. As of 31/5/2025, posts that the user creates will be accessible to other users under explore. However, only the user has the ability to delete their post in their respective home page
+  - Users will have the option to delete their post using the red delete button available under their post in the homepage
+
+  Explore and other users:
+  - Users are also able to see what other users have been up to through the explore tab in the navigation bar
+  - By clicking on another username, users can view their public profile page. Users can also choose to follow the user in question
+  - As of 31/5/2025, there is no functionality yet for users to see posts only posted by people they follow. However, this functionality will be added in upcoming versions
+
+  Profile and personalization:
+  - Users are able to update and view their profile through the profile tab in the navigation bar
+  - Users are able to update their username, email dietary preferences as well as their password
+  - Some of these changes not pertaining to personal information can be viewed by other users if they access your public profile. As of 31/5/2025 these fields include username, follower and following count, as well as dietary preferences
 
 User Experience:
   - Login:
