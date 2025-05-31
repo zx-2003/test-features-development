@@ -10,6 +10,7 @@ import EditProfile from "./components/EditProfile";
 import ExplorePosts from "./pages/ExplorePosts";
 import PublicProfilePage from "./components/PublicProfilePage";
 import Promotion from "./pages/Promotion"
+import FindFood from "./pages/FindFood";
 
 function Logout() {
   localStorage.clear()
@@ -46,6 +47,7 @@ function App() {
         <Route path="*" element={<NotFound />}></Route>
         <Route path="/publicProfile/:user_id" element={<ProtectedRoute> <PublicProfilePage /> </ProtectedRoute>}></Route>
         <Route path="/promotion" element={<Promotion />} />
+        <Route path="/findfood" element={<FindFood />} />
       </Routes>
     </BrowserRouter>
   )

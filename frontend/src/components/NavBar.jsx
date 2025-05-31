@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function NavigationBar() {
     
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -18,6 +18,7 @@ function NavigationBar() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/explore_posts">Explore</Nav.Link>
             <Nav.Link href="/promotion">Promotions</Nav.Link>
+            <Nav.Link href="/findfood">Find Food</Nav.Link>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/edit_profile">
