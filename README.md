@@ -1,38 +1,39 @@
 Instructions to test:
-- download repo
+- Download the repository
 - (Compulsory) setup own mySQLDB and configure backend > config > DATABASES with own database information
-- (Optional) get telegramAPI to test promotion listener
-- (Optional) get Maps JavaScript API, Places API (new) to test food finder
 - (Compulsory) set up .env as with .env.example in your root directory, replace necessary API keys and Hash.
+- (Optional) Get telegramAPI to test promotion listener, signup @ https://my.telegram.org/auth
+- (Optional) get Maps JavaScript API, Places API (new) to test food finder @ https://console.cloud.google.com/
+  or use the demoMap Key from Google @ https://developers.google.com/maps/documentation/javascript/place-search#maps_place_text_search-html
+
 
 Backend Startup:
   - Open terminal
-  - python -m venv .venv
-  - Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-  - .venv\Scripts\Activate.ps1
-  - cd backend
-  - .venv\Scripts\Activate.ps1
-  - pip install -r requirements.txt
-  - python.exe -m pip install --upgrade pip //if needed
-  - python manage.py makemigrations
-  - python manage.py migrate
-  - python manage.py runserver
+  - `python -m venv .venv` //create virtual environment
+  - `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
+  - `.venv\Scripts\Activate.ps1`
+  - `cd backend`
+  - `pip install -r requirements.txt` //install all packages
+  - `python.exe -m pip install --upgrade pip` //if prompted to
+  - `python manage.py makemigrations`
+  - `python manage.py migrate`
+  - `python manage.py runserver`
 
 Frontend Startup:
   - Open new terminal
-  - Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-  - .venv\Scripts\Activate.ps1
-  - cd frontend
-  - npm install
+  - `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process` //make sure .venv is created first
+  - `.venv\Scripts\Activate.ps1`
+  - `cd frontend`
+  - `npm install` //install all packages
 
 (Optional) Telethon Promotions Listener:
   - Open new terminal
-  - Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-  - .venv\Scripts\Activate.ps1
-  - cd backend
-  - python manage.py listen_telegram 
+  - `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
+  - `.venv\Scripts\Activate.ps1`
+  - `cd backend`
+  - `python manage.py listen_telegram `
   - Enter in your telegram user and 2fa code
-  - Send prompts into a temporary telegram channel, formatted as per .env.example's telegram channel
+  - Send prompts into a temporary telegram channel, formatted as per .env.example's telegram channel. Message format taken from @ https://t.me/kiasufoodies
 
 User Experience:
   - Login:
