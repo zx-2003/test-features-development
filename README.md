@@ -44,7 +44,7 @@ User guide (app functionality and navigation):
 
   Post Creation:
   - Post creation can be done in the home page, which user will be redirected to upon login
-  - User must fill in title and content. As of 31/5/2025, posts that the user creates will be accessible to other users under explore. However, only the user has the ability to delete their post in their respective home page
+  - User must fill in title and content. As of 31/5/2025, posts that the user creates will be accessible to other users under explore. However, only the user has the ability to delete their post in   their respective home page
   - Users will have the option to delete their post using the red delete button available under their post in the homepage
 
   Explore and other users:
@@ -55,21 +55,16 @@ User guide (app functionality and navigation):
   Profile and personalization:
   - Users are able to update and view their profile through the profile tab in the navigation bar
   - Users are able to update their username, email dietary preferences as well as their password
-  - Some of these changes not pertaining to personal information can be viewed by other users if they access your public profile. As of 31/5/2025 these fields include username, follower and following count, as well as dietary preferences
+  - Some of these changes not pertaining to personal information can be viewed by other users if they access your public profile. As of 31/5/2025 these fields include username, follower and           following count, as well as dietary preferences
 
-User Experience:
-  - Login:
+  Promotions:
+  - Promotions will appear in the list only if parsed by an active telethon parser, with appropriate formatting of food promotion from telegram channel.
 
-  - Registration:
+  Food Finder Map
+  - Allows Google's text search query (try: hotdogs in orchard) for food type in an area
+  - Interactive Place Detail Cards that pan and zoom to location on map, creates an InfoWindow on marker
+  - Dynamic map allows drag and scroll with real-time map features
 
-  - Home Page:
 
-  - Explore Page:
-
-  - Profile Page:
-
-  - Promotions Page:
-
-  - Food Finder Page:
 
   
