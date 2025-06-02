@@ -24,7 +24,7 @@ def parse_dates(date_str):  #updated version, needs work
     today = datetime.today().date()
     dates = []
     
-    #case: Till DD month
+    #case: Till DD MMM
     
     if match1 := re.search(r"Till (\d{1,2}) (\b\w{3}\b)", date_str, re.IGNORECASE):
         day = int(match1.group(1))
@@ -45,14 +45,20 @@ def parse_dates(date_str):  #updated version, needs work
 
         return sorted(dates)
 
-    #case: DD-DD month range dates
-    if match2 := re.search(r"(\d{1,2})-(\d{1,2}) (\b\w{3}\b)", date_str, re.IGNORECASE):
-        start_day = int(match2.group(1))
-        end_day = int(match2.group(2))
-        month_abbr = match2.group(3).title()
-
-        start_date = datetime.strptime(f"{start_day} {month_abbr} {today.year}", "%d %b %Y").date()
-        end_date = datetime.strptime(f"{end_day} {month_abbr} {today.year}", "%d %b %Y").date()
+    #case: DD-DD MMM and DD MMM - DD MMM range dates
+    if match2 := re.search(r"(\d{1,2})(?:\s(\b\w{3}\b))?\s*-\s*(\d{1,2})\s(\b\w{3}\b)", date_str, re.IGNORECASE):
+        
+        if match2.group(2): #check if the optional MMM is there, present means form DD MMM - DD MMM
+            start_day = int(match2.group(1))
+            start_month = match2.group(2).title()
+            end_day = int(match2.group(3))
+            end_month = match2.group(4).title()
+        else: # DD - DD MMM
+            start_day = int(match2.group(1))
+            end_day = int(match2.group(3))
+            start_month = end_month = match2.group(4).title()
+        start_date = datetime.strptime(f"{start_day} {start_month} {today.year}", "%d %b %Y").date()
+        end_date = datetime.strptime(f"{end_day} {end_month} {today.year}", "%d %b %Y").date()
 
         #rollover
         if end_date < today:
@@ -100,7 +106,7 @@ def parse_location(location_line): #ok
     return None
 
 def extract_hyperlink(hypertext): # check
-    url_match = re.search(r'https?:\\[^\s]+', hypertext) #need to check if tele returns hyperlinks
+    url_match = re.search(r'https?://[^\s]+', hypertext) #need to check if tele returns hyperlinks
     return url_match.group(1) if url_match else None
     
 
