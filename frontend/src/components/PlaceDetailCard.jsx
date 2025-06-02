@@ -8,10 +8,12 @@ export default function PlaceDetailCard({ place }) {
     types
   } = place; //copy over place data
 
+  const mapAPIkey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+
   //helper to get gmaps photoUrl google photos api
   const getPhotoUrl = (photo) => {
     if (!photo) return null; //check if place have photo, returns photoref token if have (find a placeholder image instead to return if no photo (try to localise this image instead in a media/static file))
-    return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photoReference}&key=AIzaSyA6myHzS10YXdcazAFalmXvDkrYCp5cLc8`;
+    return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photoReference}&key=${mapAPIkey}`;
   }; //photos currently restricted to get from Google Photos, consumes an api -> text search returns limited stuff, need to find a workaround?
 
   const photoUrl = photos?.[0] ? getPhotoUrl(photos[0]) : null;
