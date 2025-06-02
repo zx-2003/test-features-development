@@ -8,7 +8,7 @@ class FoodPromotion(models.Model):
     deal_type = models.CharField(max_length=255)
     active_dates = models.JSONField(default=list)
     location = models.CharField(max_length=255) #might need to change this to fit location finder
-    image = models.ImageField(upload_to='telefoodpromo_photos/', null=True, blank=True) #specify imgpath later
+    image = models.ImageField(upload_to='telefoodpromos_photos/', null=True, blank=True) 
     
     full_message_text = models.TextField(null=True, blank=True) #for reference
     created_at = models.DateTimeField(auto_now_add=True)
