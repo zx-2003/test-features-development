@@ -19,13 +19,29 @@ class UserProfileSerializer(serializers.ModelSerializer):
     user_posts = PostSerializer(many=True, source='user.posts', read_only=True)
     followers_count = serializers.IntegerField()
     following_count = serializers.IntegerField(read_only=True)
+    profile_picture = serializers.ImageField(required=False, allow_null=True)
 
+    dietary_preferences = serializers.ListField(
+        child = serializers.ChoiceField(choices=[
+            "vegetarian", "vegan", "halal", "kosher", "gluten_free", "dairy_free"
+        ]),
+        allow_empty=True,
+        required=False,
+    )
+
+    cuisine_preferences = serializers.ListField(
+        child=serializers.ChoiceField(choices=[
+            "italian", "japanese", "thai", "indian", "chinese", "mexican", "korean", "french"
+        ]),
+        allow_empty=True,
+        required=False,
+    )
 
     class Meta:
         model = UserProfile
         fields = [
-            'user', 'dietary_preferences',
+            'user', 'dietary_preferences', 'cuisine_preferences',
             'bookmarked_posts',
             'followers_count', 'following_count',
-            'user_posts'
+            'user_posts', 'profile_picture',
         ]

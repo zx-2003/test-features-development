@@ -10,6 +10,7 @@ function Home() {
     const [posts, setPosts] = useState([]);
     const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
+    const [image, setImage] = useState(null);
 
     useEffect(() => {
         getPosts();
@@ -44,21 +45,26 @@ function Home() {
     // creates a post request that is sent to the backend to create a new post. 
     const createPost = (e) => {
         e.preventDefault();
-        console.log({ title, content });
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", content);
+
+        if (image) formData.append("image", image);
+
         social
-            .post("/social/posts/", { content, title })
+            .post("/social/posts/", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
             .then((res) => {
-                if (res.status === 201) alert("Post created!");
-                else alert("Failed to make Post.");
+                if (res.status === 201) alert("Post created");
+                else alert("Failed to make post");
                 getPosts();
             })
             .catch((err) => {
-                if (err.response) {
-                    console.error("Error response:", err.response.data); // This shows validation errors
-                } else {
-                    console.error("Unexpected error:", err);
-                }
-                alert("Failed to create post.");
+                console.error(err);
+                alert("Failed to create post");
             });
     };
 
@@ -75,6 +81,16 @@ function Home() {
             </div>
             <h2>Create a Post</h2>
             <form onSubmit={createPost}>
+                <label htmlFor="image">Image:</label>
+                <br />
+                <input 
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/png, image/jpeg"
+                    required
+                    onChange={(e) => setImage(e.target.files[0])}
+                />
                 <label htmlFor="title">Title:</label>
                 <br />
                 <input

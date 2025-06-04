@@ -25,6 +25,7 @@ function NavigationBar() {
                 Edit Profile
               </NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link href="/logout">Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

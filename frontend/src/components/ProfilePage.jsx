@@ -31,9 +31,11 @@ const ProfilePage = () => {
       <NavigationBar />
 
       <h2>My Profile</h2>
+      <img src={profile.profile_picture} alt="Profile"></img>
       <p><strong>Username:</strong> {profile.user.username}</p>
       <p><strong>Email:</strong> {profile.user.email}</p>
-      <p><strong>Dietary Preferences:</strong> {profile.dietary_preferences}</p>
+      <p><strong>Dietary Preferences:</strong> {profile.dietary_preferences.join(", ")}</p>
+      <p><strong>Cuisine Preferences:</strong> {profile.cuisine_preferences.join(", ")}</p>
       <p><strong>Followers:</strong> {profile.followers_count}</p>
       <p><strong>Following:</strong> {profile.following_count}</p>
 

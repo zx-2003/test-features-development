@@ -9,6 +9,7 @@ function Post({post, onDelete}) {
 
     return (
         <div className = "post-container">
+            <img src={post.image} style={{width : "200px", height : "auto"}}></img>
             <p className = "post-author">Posted by: {post.author_username}</p>
             <p className = "post-title">Title: {post.title}</p>
             <p className = "post-content">{post.content}</p>

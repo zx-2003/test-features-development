@@ -9,6 +9,7 @@ function PostExplore({post}) {
 
     return (
         <div className="post-container">
+            <img src={post.image} style={{width : "200px", height : "auto"}}></img>
             <p className="post-author" onClick={() => navigate(`/publicProfile/${post.author}`)}>
                 Posted by: {post.author_username} 
             </p>

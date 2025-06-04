@@ -31,7 +31,8 @@ export default social;
 
 export const accountsApi = {
   getProfile: () => social.get("/social/accounts/profile/"),
-  updateProfile: (data) => social.patch("/social/accounts/profile/", data),
+  // updateProfile: (data) => social.patch("/social/accounts/profile/", data),
+  updateProfile: (data, config = {}) => social.patch("/social/accounts/profile/", data, config),
   changePassword: (data) => social.put("/social/accounts/change-password/", data),
   updateUser: (data) => social.patch("/social/accounts/update/", data),
 
