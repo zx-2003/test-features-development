@@ -38,6 +38,8 @@ function PublicProfilePage() {
         is_following: newIsFollowing,
         followers_count: prev.followers_count + (newIsFollowing ? 1 : -1),
       }));
+      console.log(profile.user.username);
+      console.log(profile.profile_picture);
     } catch (error) {
       alert("Failed to follow/unfollow user.");
       console.error(error);
@@ -51,10 +53,12 @@ function PublicProfilePage() {
   return (
     <div>
       <NavigationBar />
+      <img src={profile.profile_picture} style={{width : "200px", height : "300px"}} alt="Profile"></img>
       <h4>Username: {profile.user.username}</h4>
       <h4>Follower Count: {profile.followers_count}</h4>
       <h4>Following Count: {profile.following_count}</h4>
-      <h4>Dietary Preferences: {profile.dietary_preferences}</h4>
+      <h4>Dietary Preferences: {profile.dietary_preferences.join(", ")}</h4>
+      <h4>Cuisine Preferences: {profile.cuisine_preferences.join(", ")}</h4>
 
       <button onClick={handleFollowToggle}>
         {profile.is_following ? "Unfollow" : "Follow"}

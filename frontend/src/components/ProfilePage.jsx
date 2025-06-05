@@ -31,7 +31,7 @@ const ProfilePage = () => {
       <NavigationBar />
 
       <h2>My Profile</h2>
-      <img src={profile.profile_picture} alt="Profile"></img>
+      <img src={profile.profile_picture} style={{width : "200px", height : "300px"}} alt="Profile"></img>
       <p><strong>Username:</strong> {profile.user.username}</p>
       <p><strong>Email:</strong> {profile.user.email}</p>
       <p><strong>Dietary Preferences:</strong> {profile.dietary_preferences.join(", ")}</p>

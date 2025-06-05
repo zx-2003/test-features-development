@@ -47,7 +47,7 @@ class PublicProfileView(APIView):
     def get(self, request, user_id, *args, **kwargs):
         target_user = get_object_or_404(User, id=user_id)
         profile = target_user.profile
-        serializer = UserProfileSerializer(profile)
+        serializer = UserProfileSerializer(profile, context={"request": request})
 
         # we need to check if the logged in user is following the other person in question
         is_following = profile.followers.filter(id=request.user.id).exists()

@@ -21,6 +21,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
     following_count = serializers.IntegerField(read_only=True)
     profile_picture = serializers.ImageField(required=False, allow_null=True)
 
+    # handling obtaining the profile picture because we need to get the absolute path to the picture
+    def get_profile_picture(self, obj):
+        if obj.profile_picture:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.profile_picture.url)
+            return obj.profile_picture.url
+        return None
+
     dietary_preferences = serializers.ListField(
         child = serializers.ChoiceField(choices=[
             "vegetarian", "vegan", "halal", "kosher", "gluten_free", "dairy_free"

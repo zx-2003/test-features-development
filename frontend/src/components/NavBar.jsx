@@ -19,13 +19,23 @@ function NavigationBar() {
             <Nav.Link href="/explore_posts">Explore</Nav.Link>
             <Nav.Link href="/promotion">Promotions</Nav.Link>
             <Nav.Link href="/findfood">Find Food</Nav.Link>
+            <Nav.Link href="/followingPosts">Friends</Nav.Link>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/edit_profile">
                 Edit Profile
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/logout">Logout</Nav.Link>
+            <Nav.Link href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                const confirmLogout = window.confirm("Are you sure you want to logout?");
+                if (confirmLogout) {
+                  window.location.href="/logout";
+                }
+              }}
+            > Logout </Nav.Link>
+            {/* <Nav.Link href="/logout">Logout</Nav.Link> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -34,4 +44,3 @@ function NavigationBar() {
 }
 
 export default NavigationBar;
-

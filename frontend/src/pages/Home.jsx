@@ -73,12 +73,6 @@ function Home() {
     return (
         <div>
             <NavigationBar />
-            <div>
-                <h2>Posts</h2>
-                {posts.map((post) => (
-                    <Post post={post} onDelete={deletePost} key = {post.id}/>
-                ))}
-            </div>
             <h2>Create a Post</h2>
             <form onSubmit={createPost}>
                 <label htmlFor="image">Image:</label>
@@ -113,6 +107,12 @@ function Home() {
                 <br />
                 <input type="submit" value="Submit"></input>
             </form>
+            <div>
+                <h2>Posts</h2>
+                {posts.map((post) => (
+                    <Post post={post} onDelete={deletePost} key = {post.id}/>
+                ))}
+            </div>
         </div>
     );
 }
