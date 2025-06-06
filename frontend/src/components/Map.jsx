@@ -31,9 +31,9 @@ export default function Map({ query, onResults, selectedPlace }) {
       const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
       const { LatLngBounds } = await window.google.maps.importLibrary("core"); //lib for bounds
 
-      const request = {
+      const request = { //make this dynamic, enable filter to change specific items in query here (more for recommendations)
         textQuery: queryText,
-        fields: [
+        fields: [ //fields wanted from the request
           "displayName",
           "location",
           "formattedAddress",
@@ -42,9 +42,10 @@ export default function Map({ query, onResults, selectedPlace }) {
           "photos",
           "types"
         ],
-        includedType: "restaurant", //this is limited to 1 type only. 'food' group doesnt work. others include cafe, bakery, bar
+        //includedType: "restaurant", this is limited to 1 type (typeA) only. easier to just not have this (let them search bicycles), filter typeB food returned results instead 
         //locationBias: { lat: 1.3521, lng: 103.8198 },
         language: "en-UK",
+        minRating: 0.5, //this is to filter out duds, but still include bad restaurants
         maxResultCount: 8, //can increase this for deployment, max 20
         region: "sg",
         useStrictTypeFiltering: false,

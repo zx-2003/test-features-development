@@ -11,6 +11,7 @@ export default function ({ promotion }) {
             display: 'flex',
         }}>
             <div style={{ flex: '1', flexDirection: 'column' }}>
+                
                 <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 'bold' }}>
                     {promotion.restaurant_name}
                 </h2>
@@ -21,7 +22,7 @@ export default function ({ promotion }) {
                     {promotion.location}
                 </p>
                 <p style={{ margin: 0, fontSize: '14px' }}>
-                    {promotion.active_dates[promotion.active_dates.length - 1]} {/* use last date for now, add filter logic later */}
+                    {promotion.active_dates[promotion.active_dates.length - 1]} 
                 </p>
                 <p>
                     {promotion.more_info_url &&
@@ -30,6 +31,11 @@ export default function ({ promotion }) {
                         </a>
                     }
                 </p>
+                {/*
+                <p>
+                    {promotion.full_message_text}
+                </p>    strip this message for display instead*/}
+                
             </div>
             {promotion.image && (
                 <img
