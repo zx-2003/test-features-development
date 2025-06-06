@@ -20,12 +20,11 @@ def classify_deal_type(deal_text): #ok
     
     return "Others"  #default if no match
 
-def parse_dates(date_str):  #updated version, needs work
+def parse_dates(date_str): #ok
     today = datetime.today().date()
     dates = []
     
     #case: Till DD MMM
-    
     if match1 := re.search(r"Till (\d{1,2}) (\b\w{3}\b)", date_str, re.IGNORECASE):
         day = int(match1.group(1))
         month_abbr = match1.group(2).title() #3 letter abbre, turn into int in tilldate
@@ -72,6 +71,7 @@ def parse_dates(date_str):  #updated version, needs work
             current += timedelta(days=1)
 
         return sorted(dates)
+    
     #case: indiv and comma separated dates: 15, 16 May or 15 May. Terminates once comma separated is no longer date
     if match3 := re.search(r"((?:\d{1,2},\s*)*\d{1,2})\s+(\b\w{3}\b)", date_str, re.IGNORECASE):
         day_list = [int(day.strip()) for day in match3.group(1).split(',')]
@@ -106,7 +106,7 @@ def parse_location(location_line): #ok
     return None
 
 def extract_hyperlink(hypertext): # check
-    url_match = re.search(r'https?://[^\s]+', hypertext) #need to check if tele returns hyperlinks
+    url_match = re.search(r'https?://[^\s)]+', hypertext) #need to check if tele returns hyperlinks
     return url_match.group(1) if url_match else None
     
 
@@ -122,6 +122,10 @@ def parse_telepromo(text):
 
     if lines[0]: #first line restaurant name
         restaurant_name = re.sub(r'[^\w\s&%.,\'\-]', '', lines[0]).strip() #remove emoji
+
+    if re.search(r'Promo Code', restaurant_name, re.IGNORECASE): #maybe include promocode eventually? might need to handle location/date also
+        print('PromoCode, tempignore')
+        return
 
     regex_datestr = r'\d{1,2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
     regex_timestr = r'\b(0?[1-9]|1[0-2])(:([0-5][0-9]))?(am|pm)\b' #time format
@@ -146,6 +150,13 @@ def parse_telepromo(text):
         if "more info here" in line: 
             more_info_url = extract_hyperlink(line)
 
+    if not active_dates:
+        print('Missing date')
+        return #if these fields are missing then ignore, should log somewhere
+    
+    if not location:
+        print('Missing Location')
+        return #might need to log somehwre
 
     return {
         'restaurant_name': restaurant_name,

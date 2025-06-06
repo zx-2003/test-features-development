@@ -29,6 +29,9 @@ async def handle_message(event):
     
     parsed_message = parse_telepromo(message.text)
     
+    if not parsed_message: #handle failed parses (just dunk it for now, maybe add a catcher another time)
+        return
+    
     django_file = None
     image_temp_path = None
 
@@ -51,7 +54,7 @@ async def handle_message(event):
             )
 
         if image_temp_path and image_temp_path.exists(): #clean up image temp path (the regular file at root)
-            image_temp_path.unlink()
+            image_temp_path.unlink() # !!! this does not execute if there is an error in creating promotion Object, so currently dunking failed promotions
 
 class Command(BaseCommand):
     help = 'Listen for TelePromos and Store'
