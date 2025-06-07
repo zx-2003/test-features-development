@@ -11,7 +11,9 @@ import ExplorePosts from "./pages/ExplorePosts";
 import PublicProfilePage from "./components/PublicProfilePage";
 import Promotion from "./pages/Promotion"
 import FindFood from "./pages/FindFood";
-import FollowingPosts from "./components/FollowingPosts";
+import FollowingPosts from "./components/FriendPost";
+import FriendPosts from "./pages/FriendPosts";
+import UserPostCreation from "./pages/UserPostCreation";
 
 function Logout() {
   localStorage.clear()
@@ -49,7 +51,8 @@ function App() {
         <Route path="/publicProfile/:user_id" element={<ProtectedRoute> <PublicProfilePage /> </ProtectedRoute>}></Route>
         <Route path="/promotion" element={<Promotion />} />
         <Route path="/findfood" element={<FindFood />} />
-        <Route path="/followingPosts" element={<FollowingPosts />} />
+        <Route path="/friendPosts" element={<ProtectedRoute> <FriendPosts /> </ProtectedRoute>} />
+        <Route path="/userPostCreation" element={<ProtectedRoute> <UserPostCreation /> </ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   )

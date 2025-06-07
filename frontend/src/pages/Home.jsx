@@ -18,7 +18,7 @@ function Home() {
 
     const navigate = useNavigate();
 
-    // we will get the info from the backend through our api/posts/
+    // for generating the post list we will see on the homepage
     const getPosts = () => {
         social
             .get("/social/posts/")
@@ -42,73 +42,11 @@ function Home() {
             .catch((error) => alert(error));
     };
 
-    // creates a post request that is sent to the backend to create a new post. 
-    const createPost = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("content", content);
-
-        if (image) formData.append("image", image);
-
-        social
-            .post("/social/posts/", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((res) => {
-                if (res.status === 201) alert("Post created");
-                else alert("Failed to make post");
-                getPosts();
-            })
-            .catch((err) => {
-                console.error(err);
-                alert("Failed to create post");
-            });
-    };
-
-    // the home page will have this form that will change the state of the items specified above such that creating / delting
-    // post will update in the backend as well
     return (
         <div>
             <NavigationBar />
-            <h2>Create a Post</h2>
-            <form onSubmit={createPost}>
-                <label htmlFor="image">Image:</label>
-                <br />
-                <input 
-                    type="file"
-                    id="image"
-                    name="image"
-                    accept="image/png, image/jpeg"
-                    required
-                    onChange={(e) => setImage(e.target.files[0])}
-                />
-                <label htmlFor="title">Title:</label>
-                <br />
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    required
-                    onChange={(e) => setTitle(e.target.value)}
-                    value={title}
-                />
-                <label htmlFor="content">Content:</label>
-                <br />
-                <textarea
-                    id="content"
-                    name="content"
-                    required
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                ></textarea>
-                <br />
-                <input type="submit" value="Submit"></input>
-            </form>
             <div>
-                <h2>Posts</h2>
+                <h2>Your Posts</h2>
                 {posts.map((post) => (
                     <Post post={post} onDelete={deletePost} key = {post.id}/>
                 ))}

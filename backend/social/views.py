@@ -45,6 +45,21 @@ class PostListCreateExplore(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Post.objects.exclude(author=self.request.user)
+    
+# now for the people that you are following, to see thier posts.
+class FollowingListExplore(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        followed_profiles = user.following.all()
+        followed_users = [profile.user for profile in followed_profiles]
+        # this will help to return us the posts for users for which our author is following them
+        # (author is in the list of followed users)
+        # just in case exclude the author's post, although there is no way the author should be able to follow themselves
+        return Post.objects.filter(author__in=followed_users).exclude(author=self.request.user)
+
 
 class PostDelete(generics.DestroyAPIView):
     serializer_class = PostSerializer

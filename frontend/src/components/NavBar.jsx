@@ -19,7 +19,8 @@ function NavigationBar() {
             <Nav.Link href="/explore_posts">Explore</Nav.Link>
             <Nav.Link href="/promotion">Promotions</Nav.Link>
             <Nav.Link href="/findfood">Find Food</Nav.Link>
-            <Nav.Link href="/followingPosts">Friends</Nav.Link>
+            <Nav.Link href="/friendPosts">Friends</Nav.Link>
+            <Nav.Link href="/userPostCreation">Create Post</Nav.Link>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/edit_profile">
