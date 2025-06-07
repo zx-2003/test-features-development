@@ -46,9 +46,11 @@ export default function PlaceDetailCard({ place }) {
             ⭐ {rating} ({userRatingCount} reviews)
           </p>
         )}
-        {types && ( //make this a chip in future, filter unnecessary types like food, poi and estab (laze rn)
+        {types && ( 
           <p style={{ fontSize: "12px", marginTop: "6px" }}>
-            {types.join(", ")}
+            {types.filter(type => !['food', 'establishment', 'point_of_interest'].includes(type))
+              .map(type => type.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())) // '/smth/g' matches all corresponding globally
+              .join(", ")}
           </p>
         )}
       </div>
