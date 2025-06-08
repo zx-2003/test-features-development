@@ -6,11 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import NavigationBar from "../components/NavBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Home() {
+function YourPosts() {
     const [posts, setPosts] = useState([]);
-    const [content, setContent] = useState("");
-    const [title, setTitle] = useState("");
-    const [image, setImage] = useState(null);
 
     useEffect(() => {
         getPosts();
@@ -55,4 +52,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default YourPosts;

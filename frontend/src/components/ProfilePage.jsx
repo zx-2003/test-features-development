@@ -38,17 +38,6 @@ const ProfilePage = () => {
       <p><strong>Cuisine Preferences:</strong> {profile.cuisine_preferences.join(", ")}</p>
       <p><strong>Followers:</strong> {profile.followers_count}</p>
       <p><strong>Following:</strong> {profile.following_count}</p>
-
-      <h3>My Posts</h3>
-      {profile.user_posts.length === 0 ? (
-        <p>No posts yet.</p>
-      ) : (
-        <ul>
-          {profile.user_posts.map(post => (
-            <li key={post.id}>{post.title}</li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };

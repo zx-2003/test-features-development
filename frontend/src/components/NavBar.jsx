@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from "react-router-dom";
+import savrLogo from '../assets/Savr_image_logo.jpg';
 
 function NavigationBar() {
     
@@ -11,22 +12,32 @@ function NavigationBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">NomNoms</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          <img
+            src={savrLogo}
+            alt="Savr Logo"
+            width="40"
+            height="40"
+            className="d-inline-block align-top" 
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/explore_posts">Explore</Nav.Link>
-            <Nav.Link href="/promotion">Promotions</Nav.Link>
-            <Nav.Link href="/findfood">Find Food</Nav.Link>
-            <Nav.Link href="/friendPosts">Friends</Nav.Link>
-            <Nav.Link href="/userPostCreation">Create Post</Nav.Link>
+            <NavDropdown title="Social" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/">Home</NavDropdown.Item>
+              <NavDropdown.Item href="/friendPosts">Friends</NavDropdown.Item>
+              <NavDropdown.Item href="/userPostCreation">Create Post</NavDropdown.Item>
+              <NavDropdown.Item href="/yourPosts">Your Posts</NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/edit_profile">
                 Edit Profile
               </NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link href="/promotion">Promotions</Nav.Link>
+            <Nav.Link href="/findfood">Find Food</Nav.Link>
             <Nav.Link href="#"
               onClick={(e) => {
                 e.preventDefault();

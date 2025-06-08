@@ -2,7 +2,7 @@ import react from "react"
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Home from './pages/Home';
+import YourPosts from './pages/YourPosts';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProfilePage from "./components/ProfilePage";
@@ -37,13 +37,14 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <Home />
+              <ExplorePosts />
             </ProtectedRoute>
           }
         />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element = {<ProtectedRoute> <ProfilePage /> </ProtectedRoute>} />
         <Route path="/edit_profile" element = {<ProtectedRoute> <EditProfile /> </ProtectedRoute>} />
+        <Route path="/yourPosts" element = {<ProtectedRoute> <YourPosts /> </ProtectedRoute>} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/explore_posts" element={<ExplorePosts />} />
         <Route path="/register" element={<RegisterAndLogout />} />

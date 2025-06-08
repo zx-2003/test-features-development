@@ -1,6 +1,7 @@
 import NavigationBar from "./NavBar";
 import React, { useEffect, useState } from "react";
 import { accountsApi } from "../api/social";
+import { useNavigate } from "react-router-dom"
 
 const EditProfile = () => {
   const [dietaryPreferences, setDietaryPreferences] = useState([]);
@@ -33,6 +34,8 @@ const EditProfile = () => {
     "korean",
     "french",
   ];
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -80,6 +83,7 @@ const EditProfile = () => {
       }
 
       setStatus("Profile updated successfully.");
+      navigate("/profile");
     } catch (err) {
       console.error(err);
       setError("Failed to update profile.");
