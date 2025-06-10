@@ -18,6 +18,7 @@ function FriendPost({post}) {
             <p className="post-title">Title: {post.title}</p>
             <p className="post-content">{post.content}</p>
             <p className="post-date">{formattedDate}</p>
+            Place holder for likes 
         </div>
     );
 }

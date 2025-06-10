@@ -10,4 +10,7 @@ urlpatterns = [
     
     path("posts/delete/<int:pk>/", views.PostDelete.as_view(), name="delete-post"),
     path("userPublicPosts/<int:user_id>/", views.PublicPostListCreate.as_view(), name="public-posts"),
+
+    # new path for liking post to send data to our backend
+    path("posts/<int:post_id>/like/", views.ToggleLike.as_view(), name="toggle-like"),
 ]

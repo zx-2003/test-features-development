@@ -29,6 +29,11 @@ social.interceptors.request.use(
 
 export default social;
 
+// new api route im just leaving here for likes for now
+const toggleLike = (postId) => social.post(`/social/posts/${postId}/like/`);
+
+export { toggleLike }
+
 export const accountsApi = {
   getProfile: () => social.get("/social/accounts/profile/"),
   // updateProfile: (data) => social.patch("/social/accounts/profile/", data),

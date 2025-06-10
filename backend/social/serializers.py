@@ -20,13 +20,25 @@ class UserSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     author_username = serializers.SerializerMethodField()
 
+    # new fields for like, basically to see if someone has liked a post and the like count
+    like_count = serializers.SerializerMethodField()
+    is_liked = serializers.SerializerMethodField()
+
     class Meta:
         model = Post
-        fields = ["id", "title", "content", "created_at", "author", "author_username", "image"]
+        fields = ["id", "title", "content", "created_at", "author", 
+                  "author_username", "image", "like_count", "is_liked"]
         # we should be able to read who author is but shouldnt be able to write who author is. Author decided by backend
         extra_kwargs = {"author": {"read_only": True}}
     
     def get_author_username(self, obj):
         return obj.author.username
     
-
+    def get_like_count(self, obj):
+        return obj.likes.count()
+    
+    def get_is_liked(self, obj):
+        user = self.context.get('request').user
+        if user.is_authenticated:
+            return obj.likes.filter(user=user).exists()
+        return False

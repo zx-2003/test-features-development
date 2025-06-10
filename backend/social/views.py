@@ -5,6 +5,9 @@ from .serializers import UserSerializer, PostSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Like
 
 # generics.blah blah handles 2 kinds of http requests being Post and get
 # permission classes determine who can view the info
@@ -46,6 +49,9 @@ class PostListCreateExplore(generics.ListCreateAPIView):
     def get_queryset(self):
         return Post.objects.exclude(author=self.request.user)
     
+    def get_serializer_context(self):
+        return {'request': self.request}
+    
 # now for the people that you are following, to see thier posts.
 class FollowingListExplore(generics.ListCreateAPIView):
     serializer_class = PostSerializer
@@ -69,4 +75,21 @@ class PostDelete(generics.DestroyAPIView):
         user = self.request.user
         return Post.objects.filter(author=user)
     
+
+# our new API end point to save whether the user has liked something or not
+class ToggleLike(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, post_id):
+        post = Post.objects.get(id=post_id)
+        user = request.user
+
+        # this is basically saying find an existing like object with these parameters if not create a new obj
+        like, created = Like.objects.get_or_create(user=user, post=post)
+
+        if not created:
+            like.delete()
+            return Response({'liked': False, 'like_count': post.likes.count()})
+        else:
+            return Response({'liked': True, 'like_count': post.likes.count()})
     
