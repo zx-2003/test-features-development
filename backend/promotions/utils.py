@@ -105,9 +105,9 @@ def parse_location(location_line): #ok
         return at_match.group(1).strip()
     return None
 
-def extract_hyperlink(hypertext): # check
-    url_match = re.search(r'https?://[^\s)]+', hypertext) #need to check if tele returns hyperlinks
-    return url_match.group(1) if url_match else None
+def extract_hyperlink(hypertext): # ok
+    url_match = re.search(r'https?://[^\s)]+', hypertext) 
+    return url_match.group(0) if url_match else None
     
 
 #full parse
@@ -147,7 +147,7 @@ def parse_telepromo(text):
             location = parse_location(line)
 
         #hyperlink
-        if "more info here" in line: 
+        if "more info [here]" in line: 
             more_info_url = extract_hyperlink(line)
 
     if not active_dates:

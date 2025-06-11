@@ -1,4 +1,8 @@
+import placeholderPromotionImage from '../assets/Promotion_Placeholder.png'
+
 export default function ({ promotion }) {
+
+    const promoImage = promotion.image ? promotion.image : placeholderPromotionImage;
 
     return (
 
@@ -11,7 +15,7 @@ export default function ({ promotion }) {
             display: 'flex',
         }}>
             <div style={{ flex: '1', flexDirection: 'column' }}>
-                
+
                 <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 'bold' }}>
                     {promotion.restaurant_name}
                 </h2>
@@ -21,8 +25,8 @@ export default function ({ promotion }) {
                 <p style={{ margin: 0, fontSize: '14px' }}>
                     {promotion.location}
                 </p>
-                <p style={{ margin: 0, fontSize: '14px' }}>
-                    {promotion.active_dates[promotion.active_dates.length - 1]} 
+                <p style={{ margin: 0, fontSize: '14px' }}> 
+                    {promotion.active_dates[promotion.active_dates.length - 1]} {/* this needs to follow the original */}
                 </p>
                 <p>
                     {promotion.more_info_url &&
@@ -35,15 +39,12 @@ export default function ({ promotion }) {
                 <p>
                     {promotion.full_message_text}
                 </p>    strip this message for display instead*/}
-                
+
             </div>
-            {promotion.image && (
-                <img
-                    src={promotion.image}
-                    alt={`${promotion.restaurant_name} promotion`} //maybe use another static image here, eventually...
-                    style={{ width: "80px", maxWidth: '30vw', height: "auto",  }}
-                />
-            )}
+            <img
+                src={promoImage}
+                style={{ width: "80px", maxWidth: '30vw', height: "auto", }}
+            />
         </div>
 
     )

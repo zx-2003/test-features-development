@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from "react-router-dom";
-import savrLogo from '../assets/Savr_image_logo.jpg';
+import savrLogo from '../assets/Savr_Navbar_Logo.png';
 
 function NavigationBar() {
     
@@ -11,13 +11,12 @@ function NavigationBar() {
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
+      <Container fluid>
         <Navbar.Brand as={Link} to="/">
           <img
             src={savrLogo}
             alt="Savr Logo"
-            width="40"
-            height="40"
+            height='56px'
             className="d-inline-block align-top" 
           />
         </Navbar.Brand>

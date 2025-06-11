@@ -1,6 +1,6 @@
 export default function PlaceSearchBar({ query, onQueryChange, onSubmit }) {
   return (
-    <div style={{ padding: '16px' }}>
+    <div>
       <form onSubmit={onSubmit}>
         <input
           type="text"
@@ -11,7 +11,7 @@ export default function PlaceSearchBar({ query, onQueryChange, onSubmit }) {
             padding: "10px",
             fontSize: "16px",
             width: "70%",
-            border: '1px solid ccc',
+            border: '1px solid',
             borderRadius: '8px'
           }}
         />

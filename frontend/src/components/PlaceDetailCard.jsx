@@ -1,3 +1,5 @@
+import placeholderPlaceDetailImage from '../assets/Maps_PlaceDetail_Marketplace_Image.png'
+
 export default function PlaceDetailCard({ place }) {
   const {
     displayName,
@@ -8,15 +10,21 @@ export default function PlaceDetailCard({ place }) {
     types
   } = place; //copy over place data
 
-  const mapAPIkey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  //const mapAPIkey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY // all used google api share the same key for Places related queries
 
   //helper to get gmaps photoUrl google photos api
+  /*
   const getPhotoUrl = (photo) => {
     if (!photo) return null; //check if place have photo, returns photoref token if have (find a placeholder image instead to return if no photo (try to localise this image instead in a media/static file))
     return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photoReference}&key=${mapAPIkey}`;
   }; //photos currently restricted to get from Google Photos, consumes an api -> text search returns limited stuff, need to find a workaround?
 
-  const photoUrl = photos?.[0] ? getPhotoUrl(photos[0]) : null;
+  const photoUrl = photos?.[0] ? getPhotoUrl(photos[0]) : null; 
+  
+  //google place photo api has 1000 limit for calls, incur cost for 1,001th onwards. Use a placeholder for now instead (maybe diff placeholder img for different cuisine type)
+  */
+
+  const photoUrl = placeholderPlaceDetailImage;
 
   return (
     <div
@@ -33,6 +41,7 @@ export default function PlaceDetailCard({ place }) {
         <img
           src={photoUrl}
           alt={displayName}
+          loading= 'lazy' //load image only when it enters viewport
           style={{ width: "80px", height: "80px", borderRadius: "6px", objectFit: "cover" }} //fix image size 80x80, cropped
         />
       )}
