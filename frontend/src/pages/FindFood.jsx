@@ -5,15 +5,8 @@ import Map from "../components/Map";
 import NavigationBar from "../components/NavBar";
 
 export default function FindFood() {
-  const [query, setQuery] = useState("");
-  const [submittedQuery, setSubmittedQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmittedQuery(query);
-  };
 
   return ( 
     <>
@@ -24,9 +17,7 @@ export default function FindFood() {
 
           <div style={{ flex: "0 0 auto" }}>
             <PlaceSearchBar
-              query={query}
-              onQueryChange={setQuery}
-              onSubmit={handleSubmit}
+              onResults={setResults}
             />
           </div>
 
@@ -41,8 +32,7 @@ export default function FindFood() {
 
         <div style={{ width: "75%" }}>
           <Map
-            query={submittedQuery}
-            onResults={setResults}
+            results={results}
             selectedPlace={selectedPlace}
           />
         </div>

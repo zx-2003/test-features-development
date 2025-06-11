@@ -1,12 +1,52 @@
-export default function PlaceSearchBar({ query, onQueryChange, onSubmit }) {
+import { useState } from "react";
+
+export default function PlaceSearchBar({ onResults }) {
+
+  const [queryText, setQueryText] = useState("")
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    const { Place } = await window.google.maps.importLibrary("places");
+
+    const request = { //make this dynamic, enable filter to change specific items in query here (more for recommendations)
+        textQuery: queryText,
+        fields: [ //fields wanted from the request
+          "displayName",
+          "location",
+          "formattedAddress",
+          "rating",
+          "userRatingCount", //num user reviews
+          "photos",
+          "types"
+        ],
+        //includedType: "restaurant", this is limited to 1 type (typeA) only. easier to just not have this (let them search bicycles), filter typeB food returned results instead 
+        //locationBias: { lat: 1.3521, lng: 103.8198 },
+        language: "en-UK",
+        minRating: 0.5, //this is to filter out duds, but still include bad restaurants
+        maxResultCount: 8, //can increase this for deployment, max 20
+        region: "sg",
+        useStrictTypeFiltering: false,
+      };
+
+    try {
+      const { places } = await Place.searchByText(request); 
+      onResults(places);
+    } catch (err) {
+      console.error("Failed to get places", err);
+      onResults([]);
+    }
+  };
+  
+
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSearch}>
         <input
           type="text"
           placeholder="Find Places..."
-          value={query}
-          onChange={(e) => onQueryChange(e.target.value)}
+          value={queryText}
+          onChange={(e) => setQueryText(e.target.value)}
           style={{
             padding: "10px",
             fontSize: "16px",

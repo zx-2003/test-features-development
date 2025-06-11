@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import useGoogleMaps from "../hooks/useGoogleMaps"; //this hook is unfortunately needed as react components faster than async GMaps script, since react google maps api is deprecated wrt Places new API 
 
-export default function Map({ query, onResults, selectedPlace }) {
+export default function Map({ results, selectedPlace }) {
   const mapRef = useRef(null); //for map render
   const mapInstance = useRef(null); //store map
   const markersRef = useRef([]); //track markers
@@ -9,7 +9,7 @@ export default function Map({ query, onResults, selectedPlace }) {
 
   const mapsLoaded = useGoogleMaps();
 
-  useEffect(() => {
+  useEffect(() => { //initial mapload
 
     if (!mapsLoaded) return; //need to always wait for map api to retrieve map before allowing any other actions (non-react component)
 
@@ -21,66 +21,43 @@ export default function Map({ query, onResults, selectedPlace }) {
         zoom: 12,
         mapId: "DEMO_MAP_ID",
       });
-      findPlaces(query);
     }
 
-    async function findPlaces(queryText) {
-      if (!queryText) return;
+    initMap();
+  }, [mapsLoaded]);
 
-      const { Place } = await window.google.maps.importLibrary("places");
+  useEffect(() => { //on placequery mark map
+
+    if (!mapsLoaded || !results?.length) return;
+
+    async function placeMarkers() {
+
       const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
       const { LatLngBounds } = await window.google.maps.importLibrary("core"); //lib for bounds
-
-      const request = { //make this dynamic, enable filter to change specific items in query here (more for recommendations)
-        textQuery: queryText,
-        fields: [ //fields wanted from the request
-          "displayName",
-          "location",
-          "formattedAddress",
-          "rating",
-          "userRatingCount", //num user reviews
-          "photos",
-          "types"
-        ],
-        //includedType: "restaurant", this is limited to 1 type (typeA) only. easier to just not have this (let them search bicycles), filter typeB food returned results instead 
-        //locationBias: { lat: 1.3521, lng: 103.8198 },
-        language: "en-UK",
-        minRating: 0.5, //this is to filter out duds, but still include bad restaurants
-        maxResultCount: 8, //can increase this for deployment, max 20
-        region: "sg",
-        useStrictTypeFiltering: false,
-      };
-
-      const { places } = await Place.searchByText(request);
 
       markersRef.current.forEach(marker => marker.map = null); //clear old markers
       markersRef.current = [];
 
-      if (places?.length) {
-        const bounds = new LatLngBounds();
-        places.forEach((place) => {
-          const marker = new AdvancedMarkerElement({
-            map: mapInstance.current,
-            position: place.location,
-            title: place.displayName,
-          });
-
-          markersRef.current.push({ placeId: place.id, marker, place }); //store marker info
-
-          bounds.extend(place.location); //include this marker in bound for display
+      const bounds = new LatLngBounds();
+      results.forEach((place) => {
+        const marker = new AdvancedMarkerElement({
+          map: mapInstance.current,
+          position: place.location,
+          title: place.displayName,
         });
 
-        mapInstance.current.fitBounds(bounds);
-        onResults(places); //send to app
-      } else {
-        onResults([]);
-      }
+        markersRef.current.push({ placeId: place.id, marker, place }); //store marker info
+
+        bounds.extend(place.location); //include this marker in bound for display
+      });
+
+      mapInstance.current.fitBounds(bounds);
     }
 
-    initMap();
-  }, [mapsLoaded, query]);
+    placeMarkers();
+  }, [mapsLoaded, results]);
 
-  useEffect(() => {
+  useEffect(() => { //panzoom + infowindow on selectedplace
     if (mapsLoaded && selectedPlace && mapInstance.current) {
       mapInstance.current.panTo(selectedPlace.location); //pan to location if detailcard clicked
       mapInstance.current.setZoom(17); //zoom in after pan
