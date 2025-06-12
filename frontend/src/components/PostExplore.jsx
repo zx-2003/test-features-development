@@ -9,7 +9,7 @@ function PostExplore({post}) {
 
     // new states for the liked state of the post and liking the post
     const [liked, setLiked] = useState(post.is_liked);
-    const [likeCount, setLikeCount] = useState(post.like_count)
+    const [likeCount, setLikeCount] = useState(post.like_count);
 
     const handleLikeToggle = async () => {
         try {
@@ -34,8 +34,8 @@ function PostExplore({post}) {
             <p className="post-content">{post.content}</p>
             <p className="post-date">{formattedDate}</p>
         
-            <button onClick={handleLikeToggle}>
-                {liked ? "Unlike": "Like"} ({likeCount})
+            <button style={{ border: "none" }} onClick={handleLikeToggle}>
+                {liked ? "❤️": "🤍"} {likeCount}
             </button>
         </div>        
     );

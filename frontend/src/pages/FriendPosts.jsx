@@ -8,14 +8,16 @@ import FriendPost from "../components/FriendPost";
 
 function FriendPosts() {
     const [posts, setPosts] = useState([]);
+    // new logic for filtering
+    const [ordering, setOrdering] = useState("-created_at")
 
     useEffect(() => {
-        getExplorePosts();
-    }, []);
+        getExplorePosts(ordering);
+    }, [ordering]);
 
     const getExplorePosts = () => {
         social
-            .get("/social/following_posts/")
+            .get(`/social/following_posts/?ordering=${ordering}`)
             .then((res) => res.data)
             .then((data) => {
                 setPosts(data);
@@ -24,14 +26,28 @@ function FriendPosts() {
             .catch((err) => alert(err));
     }
 
+    const handleOrderingChange = (e) => {
+        setOrdering(e.target.value);
+    }
+
     return (
         <div>
             <NavigationBar />
-            <h2>See what your friends have been up to</h2>
-            <div>
-                {posts.map((post) => (
-                    <FriendPost post={post} key = {post.id}/>
-                ))}
+            <div style={{margin: "20px"}}>
+                <h2>See what your friends have been up to</h2>
+
+                <div style={{ margin: "10px 0"}}>
+                    <select id="sort" onChange={handleOrderingChange} value={ordering}>
+                        <option value="-created_at">Most Recent</option>
+                        <option value="-like_count">Most Liked</option>
+                    </select>
+                </div>
+
+                <div>
+                    {posts.map((post) => (
+                        <FriendPost post={post} key = {post.id}/>
+                    ))}
+                </div>
             </div>
         </div>
     )

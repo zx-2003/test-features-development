@@ -6,6 +6,7 @@ urlpatterns = [
     path("explore_posts/", views.PostListCreateExplore.as_view(), name = "post-list-explore"),
 
     # new path for to see the posts of the users we are following
+    # new addition includes the ability to filter like the explore posts as well
     path("following_posts/", views.FollowingListExplore.as_view(), name = "following-list-explore"),
     
     path("posts/delete/<int:pk>/", views.PostDelete.as_view(), name="delete-post"),

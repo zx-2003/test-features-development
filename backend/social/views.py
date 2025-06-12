@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework import generics 
+from rest_framework import generics, filters
 from .serializers import UserSerializer, PostSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post
@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Like
+from django.db.models import Count
 
 # generics.blah blah handles 2 kinds of http requests being Post and get
 # permission classes determine who can view the info
@@ -46,16 +47,27 @@ class PostListCreateExplore(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
 
+    # new fields to enable filtering of the posts
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['created_at', 'like_count']
+    ordering = ['-created_at']
+
     def get_queryset(self):
-        return Post.objects.exclude(author=self.request.user)
+        return Post.objects.exclude(author=self.request.user) \
+            .annotate(like_count=Count('likes'))
     
     def get_serializer_context(self):
         return {'request': self.request}
     
-# now for the people that you are following, to see thier posts.
+# now for the people that you are following, to see their posts.
 class FollowingListExplore(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
+
+    # new fields to enable filtering of the posts
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['created_at', 'like_count']
+    ordering = ['-created_at']
 
     def get_queryset(self):
         user = self.request.user
@@ -64,7 +76,8 @@ class FollowingListExplore(generics.ListCreateAPIView):
         # this will help to return us the posts for users for which our author is following them
         # (author is in the list of followed users)
         # just in case exclude the author's post, although there is no way the author should be able to follow themselves
-        return Post.objects.filter(author__in=followed_users).exclude(author=self.request.user)
+        return Post.objects.filter(author__in=followed_users).exclude(author=self.request.user) \
+            .annotate(like_count=Count('likes'))
 
 
 class PostDelete(generics.DestroyAPIView):
