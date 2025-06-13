@@ -1,30 +1,21 @@
-import placeholderPlaceDetailImage from '../assets/Maps_PlaceDetail_Marketplace_Image.png'
+import { useState } from "react";
+import placeholderPlaceDetailImage from "../assets/Maps_PlaceDetail_Marketplace_Image.png"
 
-export default function PlaceDetailCard({ place }) {
+export default function PlaceDetailCard({ place }) { //need placeid here and import places to use reviews and photos here?
+
+  const [showReview, setShowReview] = useState(false)
+
   const {
     displayName,
     formattedAddress,
-    rating,
-    userRatingCount,
-    photos,
-    types
+    rating, //this needs to be truncated if cost issue (enterprise lvl)
+    userRatingCount, //this also needs to be truncated if cost issue (enterprise lvl)
+    photos, 
+    types,
+    reviews,//this also needs to be truncated if cost issue (enterprise lvl)
   } = place; //copy over place data
 
-  //const mapAPIkey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY // all used google api share the same key for Places related queries
-
-  //helper to get gmaps photoUrl google photos api
-  /*
-  const getPhotoUrl = (photo) => {
-    if (!photo) return null; //check if place have photo, returns photoref token if have (find a placeholder image instead to return if no photo (try to localise this image instead in a media/static file))
-    return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photoReference}&key=${mapAPIkey}`;
-  }; //photos currently restricted to get from Google Photos, consumes an api -> text search returns limited stuff, need to find a workaround?
-
-  const photoUrl = photos?.[0] ? getPhotoUrl(photos[0]) : null; 
-  
-  //google place photo api has 1000 limit for calls, incur cost for 1,001th onwards. Use a placeholder for now instead (maybe diff placeholder img for different cuisine type)
-  */
-
-  const photoUrl = placeholderPlaceDetailImage;
+  const photoURI = photos?.[0] ? place.photos[0].getURI({ maxHeight: 400 }) : placeholderPlaceDetailImage; //called per result, use placeholder only to reduce cost
 
   return (
     <div
@@ -37,27 +28,51 @@ export default function PlaceDetailCard({ place }) {
         gap: "12px"
       }}
     >
-      {photoUrl && (
+      {photoURI && (
         <img
-          src={photoUrl}
+          src={photoURI}
           alt={displayName}
-          loading= 'lazy' //load image only when it enters viewport
+          loading="lazy" //load image only when it enters viewport
           style={{ width: "80px", height: "80px", borderRadius: "6px", objectFit: "cover" }} //fix image size 80x80, cropped
         />
       )}
       <div style={{ flex: 1 }}> {/* flex1 to occupy rem space beside image */}
-        <h4 style={{ margin: "0 0 6px 0" }}>{displayName}</h4> {/* standard header */}
+        <h4 style={{ margin: "0 0 6px 0", fontWeight: 'bold' }}>{displayName}</h4> {/* standard header */}
         <p style={{ margin: "4px 0", fontSize: "14px" }}> {/* standard para */}
           {formattedAddress || "Address not available"}
         </p>
-        {rating && (
+        {rating && ( //make reviews clickable which pops out a buncha reviews
           <p style={{ margin: "4px 0", fontSize: "14px" }}>
-            ⭐ {rating} ({userRatingCount} reviews)
+            ⭐ {rating} {' '}
+            <span onClick={() => { setShowReview(!showReview) }} style={{ color: 'blue', cursor: 'pointer' }}>
+              ({userRatingCount} reviews)
+            </span>
+
           </p>
         )}
-        {types && ( 
+
+        {showReview && reviews?.length > 0 && ( //need to make this fetch only on click, rather than prefetching for all results for cost management
+          <div style={{
+            fontSize: "12px",
+            scrollMarginTop: "6px",
+            border: "1px solid",
+            borderRadius: "4px",
+            padding: "4px",
+            maxHeight: "100px",
+            overflowY: "auto"
+          }}>
+            {reviews.map((review, idx) => (
+              <div key={idx} style={{ marginBottom: "8px" }}>
+                <p> {review.authorAttribution.displayName} - {review.rating}⭐ </p>
+                <p> {review.text} </p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {types && (
           <p style={{ fontSize: "12px", marginTop: "6px" }}>
-            {types.filter(type => !['food', 'establishment', 'point_of_interest'].includes(type))
+            {types.filter(type => !["food", "establishment", "point_of_interest"].includes(type))
               .map(type => type.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())) // '/smth/g' matches all corresponding globally
               .join(", ")}
           </p>
