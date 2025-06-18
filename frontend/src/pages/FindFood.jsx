@@ -12,7 +12,7 @@ export default function FindFood() {
     <>
       <NavigationBar />
 
-      <div style={{ display: "flex", height: "calc(100vh - 56px)" }}> {/*offset for navbar*/}
+      <div style={{ display: "flex", height: "90%" }}> {/*offset for navbar*/}
         <div style={{ width: "25%", display: "flex", flexDirection: "column" }}>
 
           <div style={{ flex: "0 0 auto" }}>

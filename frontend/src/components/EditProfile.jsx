@@ -15,16 +15,17 @@ const EditProfile = () => {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
 
-  const DIETARY_OPTIONS = [
+  const DIETARY_OPTIONS = [ 
     "vegetarian",
     "vegan",
     "halal",
     "kosher",
     "gluten_free",
     "dairy_free",
+    //"nut_free",
   ];
 
-  const CUISINE_OPTIONS = [
+  const CUISINE_OPTIONS = [ //pls make this multiselect as well, I'll prolly random select from a multifield for recommendations
     "italian",
     "japanese",
     "thai",
@@ -33,6 +34,17 @@ const EditProfile = () => {
     "mexican",
     "korean",
     "french",
+    //"african",
+    //"american",
+    //"asian",
+    //"brazilian",
+    //"greek",
+    //"indonesian",
+    //"spanish",
+    //"turkish",
+    //"mediterranean",
+    //"lebanese",
+    //"middle_eastern",
   ];
 
   const navigate = useNavigate()
