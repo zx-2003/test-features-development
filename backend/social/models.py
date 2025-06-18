@@ -16,6 +16,10 @@ class Post(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
+    # by setting it up this way, each Post object can have multiple Like objects associated with it. 
+    # later on we need to filter by likes so we use the related name "likes" 
+    # use Count. to count the number of likes
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     # this will prevent the same user from liking the same post in the database. Could cause conflicting ID.

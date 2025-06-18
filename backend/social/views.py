@@ -74,7 +74,6 @@ class FollowingListExplore(generics.ListCreateAPIView):
         followed_profiles = user.following.all()
         followed_users = [profile.user for profile in followed_profiles]
         # this will help to return us the posts for users for which our author is following them
-        # (author is in the list of followed users)
         # just in case exclude the author's post, although there is no way the author should be able to follow themselves
         return Post.objects.filter(author__in=followed_users).exclude(author=self.request.user) \
             .annotate(like_count=Count('likes'))
@@ -97,7 +96,8 @@ class ToggleLike(APIView):
         post = Post.objects.get(id=post_id)
         user = request.user
 
-        # this is basically saying find an existing like object with these parameters if not create a new obj
+        # this is basically saying find an existing like object with these parameters if not create a new like
+        # obj that is associated with that post
         like, created = Like.objects.get_or_create(user=user, post=post)
 
         if not created:
