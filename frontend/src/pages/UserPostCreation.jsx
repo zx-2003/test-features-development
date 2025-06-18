@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function UserPostCreation() {
     const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
+    const [rating, setRating] = useState("");
+    const [location, setLocation] = useState("");
     const [image, setImage] = useState(null);
 
     const navigate = useNavigate()
@@ -18,6 +20,8 @@ function UserPostCreation() {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("content", content);
+        formData.append("rating", rating);
+        formData.append("location", location);
 
         if (image) formData.append("image", image);
 
@@ -53,6 +57,7 @@ function UserPostCreation() {
                     required
                     onChange={(e) => setImage(e.target.files[0])}
                 />
+
                 <label htmlFor="title">Title:</label>
                 <br />
                 <input
@@ -63,6 +68,7 @@ function UserPostCreation() {
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                 />
+
                 <label htmlFor="content">Content:</label>
                 <br />
                 <textarea
@@ -72,7 +78,35 @@ function UserPostCreation() {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 ></textarea>
+
+                <label htmlFor="location">Location:</label>
                 <br />
+                <textarea
+                    id="location"
+                    name="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                ></textarea>
+
+                <label htmlFor="rating">Rating: </label>
+                <br />
+                <select 
+                    id="rating"
+                    name="rating"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                >
+                    <option value="" disabled hidden>
+                        Select a rating
+                    </option>
+                    {[1, 2, 3, 4, 5].map((num) => (
+                        <option key={num} value={num}>
+                            {num}
+                        </option>
+                    ))}
+                </select>
+                <br />
+
                 <input type="submit" value="Submit"></input>
             </form>
         </div>

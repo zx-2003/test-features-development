@@ -32,8 +32,9 @@ function PostExplore({post}) {
             </p>
             <p className="post-title">Title: {post.title}</p>
             <p className="post-content">{post.content}</p>
+            <p className = "location">Location: {post.location}</p>
+            <p className="rating">Rating: {"⭐".repeat(post.rating)}</p>
             <p className="post-date">{formattedDate}</p>
-        
             <button style={{ border: "none" }} onClick={handleLikeToggle}>
                 {liked ? "❤️": "🤍"} {likeCount}
             </button>

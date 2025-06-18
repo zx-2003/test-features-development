@@ -27,7 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ["id", "title", "content", "created_at", "author", 
-                  "author_username", "image", "like_count", "is_liked"]
+                  "author_username", "image", "like_count", "is_liked", "rating", "location",]
         # we should be able to read who author is but shouldnt be able to write who author is. Author decided by backend
         extra_kwargs = {"author": {"read_only": True}}
     

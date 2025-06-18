@@ -5,7 +5,6 @@ import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect } from "react";
 
 // check if we are authorized before we allow someone to access this route
-// Some settings jargon so everything works most likely we won't need this again. Hopefully.
 
 function ProtectedRoute({ children }) {
     const [isAuthorized, setIsAuthorized] = useState(null);

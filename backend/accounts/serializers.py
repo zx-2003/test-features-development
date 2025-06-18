@@ -30,17 +30,21 @@ class UserProfileSerializer(serializers.ModelSerializer):
             return obj.profile_picture.url
         return None
 
-    dietary_preferences = serializers.ListField(
+    # this is basically saying that we can only accept a list of strings for this field. It can be empty as well.
+    # each item in the list must be one of the choices. List can be empty, it's optional also. 
+    dietary_requirements = serializers.ListField(
         child = serializers.ChoiceField(choices=[
-            "vegetarian", "vegan", "halal", "kosher", "gluten_free", "dairy_free"
+            "vegetarian", "vegan", "halal", "kosher", "gluten_free", "dairy_free", "nut_free",
         ]),
         allow_empty=True,
         required=False,
     )
 
-    cuisine_preferences = serializers.ListField(
+    dietary_preferences = serializers.ListField(
         child=serializers.ChoiceField(choices=[
-            "italian", "japanese", "thai", "indian", "chinese", "mexican", "korean", "french"
+            "italian", "japanese", "thai", "indian", "chinese", "mexican", "korean", "french", 
+            "african", "american", "asian", "brazilian", "greek", "indonesian", "spanish", "turkish", 
+            "mediterranean", "lebanese", "middle_eastern",
         ]),
         allow_empty=True,
         required=False,
@@ -49,7 +53,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = [
-            'user', 'dietary_preferences', 'cuisine_preferences',
+            'user', 'dietary_requirements', 'dietary_preferences',
             'bookmarked_posts',
             'followers_count', 'following_count',
             'user_posts', 'profile_picture',

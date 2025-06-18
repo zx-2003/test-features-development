@@ -4,7 +4,7 @@ import { accountsApi } from "../api/social";
 import { useNavigate } from "react-router-dom"
 
 const EditProfile = () => {
-  const [dietaryPreferences, setDietaryPreferences] = useState([]);
+  const [dietaryPreferences, setDietaryRequirements] = useState([]);
   const [cuisinePreferences, setCuisinePreferences] = useState([]);
   const [username, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
@@ -15,17 +15,18 @@ const EditProfile = () => {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
 
-  const DIETARY_OPTIONS = [ 
+  const DIETARY_REQUIREMENTS = [ 
     "vegetarian",
     "vegan",
     "halal",
     "kosher",
     "gluten_free",
     "dairy_free",
-    //"nut_free",
+    // new fields
+    "nut_free",
   ];
 
-  const CUISINE_OPTIONS = [ //pls make this multiselect as well, I'll prolly random select from a multifield for recommendations
+  const DIETARY_PREFERENCES = [
     "italian",
     "japanese",
     "thai",
@@ -34,17 +35,18 @@ const EditProfile = () => {
     "mexican",
     "korean",
     "french",
-    //"african",
-    //"american",
-    //"asian",
-    //"brazilian",
-    //"greek",
-    //"indonesian",
-    //"spanish",
-    //"turkish",
-    //"mediterranean",
-    //"lebanese",
-    //"middle_eastern",
+    // new fields
+    "african",
+    "american",
+    "asian",
+    "brazilian",
+    "greek",
+    "indonesian",
+    "spanish",
+    "turkish",
+    "mediterranean",
+    "lebanese",
+    "middle_eastern",
   ];
 
   const navigate = useNavigate()
@@ -55,8 +57,8 @@ const EditProfile = () => {
         const res = await accountsApi.getProfile();
         setUsername(res.data.user.username);
         setEmail(res.data.user.email);
-        setDietaryPreferences(res.data.dietary_preferences || []);
-        setCuisinePreferences(res.data.cuisine_preferences || []);
+        setDietaryRequirements(res.data.dietary_requirements || []);
+        setCuisinePreferences(res.data.dietary_preferences || []);
         setLoading(false);
       } catch (err) {
         setError("Failed to load profile.");
@@ -73,8 +75,8 @@ const EditProfile = () => {
     setError("");
 
     const formData = new FormData();
-    dietaryPreferences.forEach(pref => formData.append("dietary_preferences", pref));
-    cuisinePreferences.forEach(pref => formData.append("cuisine_preferences", pref));
+    dietaryPreferences.forEach(pref => formData.append("dietary_requirements", pref));
+    cuisinePreferences.forEach(pref => formData.append("dietary_preferences", pref));
 
     if (profilePicture) {
       formData.append("profile_picture", profilePicture);
@@ -146,10 +148,10 @@ const EditProfile = () => {
             value={dietaryPreferences}
             onChange={(e) => {
               const selected = Array.from(e.target.selectedOptions, option => option.value);
-              setDietaryPreferences(selected);
+              setDietaryRequirements(selected);
             }}
           >
-            {DIETARY_OPTIONS.map((option) => (
+            {DIETARY_REQUIREMENTS.map((option) => (
               <option key={option} value={option}>
                 {option.replace("_", " ").toUpperCase()}
               </option>
@@ -168,7 +170,7 @@ const EditProfile = () => {
               setCuisinePreferences(selected);
             }}
           >
-            {CUISINE_OPTIONS.map((option) => (
+            {DIETARY_PREFERENCES.map((option) => (
               <option key={option} value={option}>
                 {option.replace("_", " ").toUpperCase()}
               </option>

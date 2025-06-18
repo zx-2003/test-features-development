@@ -10,8 +10,8 @@ class UserProfile(models.Model):
     )
     username = models.CharField(max_length=150, blank=True)  
 
+    dietary_requirements = models.JSONField(default=list, blank=True)
     dietary_preferences = models.JSONField(default=list, blank=True)
-    cuisine_preferences = models.JSONField(default=list, blank=True)
 
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
     
