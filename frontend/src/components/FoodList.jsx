@@ -7,11 +7,11 @@ export default function FoodList({ results, onCardClick, selectedPlace }) {
       {results.length === 0 ? (
         <p>No results found</p>
       ) : ( //populate with detailcards
-        results.map((place, index) => {
+        results.map((place) => {
           const isSelected = selectedPlace?.id === place.id;
           return (
             <div
-              key={index}
+              key={JSON.stringify(place)} //cannot use idx here as it preserves state, need to match exact so review doesnt stay open on new search
               onClick={() => onCardClick(place)}
               style={{
                 cursor: "pointer", //change arrow to finger (look clickable)

@@ -44,6 +44,7 @@ export default function PromotionFilter({ onFilter }) {
                             type='checkbox'
                             checked={selectedDealTypes.includes(type)} //checkbox T/F
                             onChange={() => toggleDealType(type)} //checking and unchecking handler
+                            style={{ marginRight: '4px' }}
                         />
                         {type}
                     </label>
@@ -61,6 +62,7 @@ export default function PromotionFilter({ onFilter }) {
                         value='all'
                         checked={periodType === 'all'} //radio T/F
                         onChange={(e) => setPeriodType(e.target.value)}
+                        style={{ marginRight: '4px' }}
                     />
                     All
                 </label>
@@ -71,6 +73,7 @@ export default function PromotionFilter({ onFilter }) {
                         value='today'
                         checked={periodType === 'today'}
                         onChange={(e) => setPeriodType(e.target.value)}
+                        style={{ marginRight: '4px' }}
                     />
                     Today
                 </label>
@@ -81,6 +84,7 @@ export default function PromotionFilter({ onFilter }) {
                         value='upcoming'
                         checked={periodType === 'upcoming'}
                         onChange={(e) => setPeriodType(e.target.value)}
+                        style={{ marginRight: '4px' }}
                     />
                     Upcoming
                 </label>

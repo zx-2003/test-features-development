@@ -1,5 +1,4 @@
 export default function PopUpFilter({ onClose, children }) { 
-
     return (
         <div>
             <div style={{ //for the popup box
@@ -28,5 +27,4 @@ export default function PopUpFilter({ onClose, children }) {
             </div>
         </div>
     );
-
 }

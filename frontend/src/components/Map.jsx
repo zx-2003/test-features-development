@@ -35,7 +35,7 @@ export default function Map({ results, selectedPlace }) {
       const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
       const { LatLngBounds } = await window.google.maps.importLibrary("core"); //lib for bounds
 
-      markersRef.current.forEach(marker => marker.map = null); //clear old markers
+      markersRef.current.forEach(({ marker }) => marker.map = null); //clear old markers
       markersRef.current = [];
 
       const bounds = new LatLngBounds();
