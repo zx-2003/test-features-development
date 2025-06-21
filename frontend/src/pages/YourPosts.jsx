@@ -8,17 +8,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function YourPosts() {
     const [posts, setPosts] = useState([]);
+    const [ordering, setOrdering] = useState("-created_at");
 
     useEffect(() => {
-        getPosts();
-    }, []);
+        getPosts(ordering);
+    }, [ordering]);
 
     const navigate = useNavigate();
+
+    const handleOrderingChange = (e) => {
+        setOrdering(e.target.value);
+    }
 
     // for generating the post list we will see on the homepage
     const getPosts = () => {
         social
-            .get("/social/posts/")
+            .get(`/social/posts/?ordering=${ordering}`)
             .then((res) => res.data)
             .then((data) => {
                 setPosts(data);
@@ -42,11 +47,19 @@ function YourPosts() {
     return (
         <div>
             <NavigationBar />
-            <div>
+            <div style={{margin: "20px"}}>
                 <h2>Your Posts</h2>
-                {posts.map((post) => (
-                    <Post post={post} onDelete={deletePost} key = {post.id}/>
-                ))}
+                <div style={{ margin: "10px 0"}}>
+                    <select id="sort" onChange={handleOrderingChange} value={ordering}>
+                        <option value="-created_at">Most Recent</option>
+                        <option value="-like_count">Most Liked</option>
+                    </select>
+                </div>
+                <div className="post-wrapper">
+                    {posts.map((post) => (
+                        <Post post={post} onDelete={deletePost} key = {post.id}/>
+                    ))}
+                </div>
             </div>
         </div>
     );

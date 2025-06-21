@@ -1,0 +1,9 @@
+.container {
+    margin: 20px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+}

@@ -24,13 +24,19 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+# edited for filtering on site
 class PostListCreate(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
 
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['created_at', 'like_count']
+    ordering = ['-created_at']
+
     def get_queryset(self):
         user = self.request.user
-        return Post.objects.filter(author=user)
+        return Post.objects.filter(author=user) \
+            .annotate(like_count=Count('likes'))
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

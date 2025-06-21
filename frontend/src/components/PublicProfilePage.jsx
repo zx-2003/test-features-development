@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { accountsApi } from "../api/social";
 import NavigationBar from "./NavBar";
+import "../styles/Profile.css"
+import DefaultProfilePicture from "../assets/Default_Profile_Picture.png"
 
 function PublicProfilePage() {
   const { user_id } = useParams();
@@ -53,16 +55,20 @@ function PublicProfilePage() {
   return (
     <div>
       <NavigationBar />
-      <img src={profile.profile_picture} style={{width : "200px", height : "300px"}} alt="Profile"></img>
-      <h4>Username: {profile.user.username}</h4>
-      <h4>Follower Count: {profile.followers_count}</h4>
-      <h4>Following Count: {profile.following_count}</h4>
-      <h4>Dietary Preferences: {profile.dietary_requirements.join(", ")}</h4>
-      <h4>Cuisine Preferences: {profile.dietary_preferences.join(", ")}</h4>
+      <div className="container">
+        <img className="profile-picture"
+          src={profile.profile_picture || DefaultProfilePicture}>  
+        </img>
+        <h4>Username: {profile.user.username}</h4>
+        <h4>Follower Count: {profile.followers_count}</h4>
+        <h4>Following Count: {profile.following_count}</h4>
+        <h4>Dietary Preferences: {profile.dietary_requirements.join(", ")}</h4>
+        <h4>Cuisine Preferences: {profile.dietary_preferences.join(", ")}</h4>
 
-      <button onClick={handleFollowToggle}>
-        {profile.is_following ? "Unfollow" : "Follow"}
-      </button>
+        <button onClick={handleFollowToggle}>
+          {profile.is_following ? "Unfollow" : "Follow"}
+        </button>
+        </div>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react"
 import { accountsApi } from "../api/social"
 import NavigationBar from "./NavBar";
+import "../styles/Profile.css"
+import DefaultProfilePicture from "../assets/Default_Profile_Picture.png"
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
@@ -29,15 +31,18 @@ const ProfilePage = () => {
   return (
     <div>
       <NavigationBar />
-
-      <h2>My Profile</h2>
-      <img src={profile.profile_picture} style={{width : "200px", height : "300px"}} alt="Profile"></img>
-      <p><strong>Username:</strong> {profile.user.username}</p>
-      <p><strong>Email:</strong> {profile.user.email}</p>
-      <p><strong>Dietary Preferences:</strong> {profile.dietary_requirements.join(", ")}</p>
-      <p><strong>Cuisine Preferences:</strong> {profile.dietary_preferences.join(", ")}</p>
-      <p><strong>Followers:</strong> {profile.followers_count}</p>
-      <p><strong>Following:</strong> {profile.following_count}</p>
+      <div className="container">
+        <h2>My Profile</h2>
+        <img className="profile-picture"
+          src={profile.profile_picture || DefaultProfilePicture}>  
+        </img>
+        <p><strong>Username:</strong> {profile.user.username}</p>
+        <p><strong>Email:</strong> {profile.user.email}</p>
+        <p><strong>Dietary Preferences:</strong> {profile.dietary_requirements.join(", ")}</p>
+        <p><strong>Cuisine Preferences:</strong> {profile.dietary_preferences.join(", ")}</p>
+        <p><strong>Followers:</strong> {profile.followers_count}</p>
+        <p><strong>Following:</strong> {profile.following_count}</p>
+      </div>
     </div>
   );
 };

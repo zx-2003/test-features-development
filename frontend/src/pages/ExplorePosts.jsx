@@ -42,7 +42,7 @@ function ExplorePosts() {
                     </select>
                 </div>
 
-                <div>
+                <div className="post-wrapper">
                     {posts.map((post) => (
                         <PostExplore post={post} key = {post.id}/>
                     ))}

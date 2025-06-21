@@ -1,8 +1,18 @@
 .post-container {
   padding: 10px;
-  margin: 20px 0;
+  margin: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  justify-content: center;
+  width: 400px;
+}
+
+.post-image {
+  width: 200px;
+  height: 300px;
+  margin: 0 auto;
+  display: block;
+  padding: 10px;
 }
 
 .post-title {

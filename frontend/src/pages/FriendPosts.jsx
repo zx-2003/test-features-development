@@ -43,7 +43,7 @@ function FriendPosts() {
                     </select>
                 </div>
 
-                <div>
+                <div className="post-wrapper">
                     {posts.map((post) => (
                         <FriendPost post={post} key = {post.id}/>
                     ))}
