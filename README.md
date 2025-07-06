@@ -6,8 +6,6 @@ Instructions to test:
   or (Optional) use your own Maps JavaScript API, Places API (new) to test food finder @ https://console.cloud.google.com/
 - (Optional) Get telegramAPI to test promotion listener, signup @ https://my.telegram.org/auth
 
-testing to see if linked
-
 
 Backend Startup:
   - Open terminal
