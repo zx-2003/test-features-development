@@ -43,7 +43,7 @@ function PostExplore({post}) {
                 )
             }
             <p className="post-date">{formattedDate}</p>
-            <button style={{ border: "none" }} onClick={handleLikeToggle}>
+            <button className="post-like-button" onClick={handleLikeToggle}>
                 {liked ? "❤️": "🤍"} {likeCount}
             </button>
         </div>        
