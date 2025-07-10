@@ -55,21 +55,26 @@ function PublicProfilePage() {
   return (
     <div>
       <NavigationBar />
-      <div className="profile-container">
+      <div>
         <div className="container">
           <img className="profile-picture"
             src={profile.profile_picture || DefaultProfilePicture}>  
           </img>
-          <div>Username: {profile.user.username}</div>
-          <div>Follower Count: {profile.followers_count}</div>
-          <div>Following Count: {profile.following_count}</div>
-          <div>Dietary Preferences: {profile.dietary_requirements.join(", ")}</div>
-          <div>Cuisine Preferences: {profile.dietary_preferences.join(", ")}</div>
 
-          <button onClick={handleFollowToggle}>
-            {profile.is_following ? "Unfollow" : "Follow"}
-          </button>
+          <div className="profile-info">
+            <h2 className="profile-title">{profile.user.username}'s profile</h2>
+            <p><strong>Username: {profile.user.username}</strong></p>
+            <p><strong>Follower Count: {profile.followers_count}</strong></p>
+            <p><strong>Following Count: {profile.following_count}</strong></p>
+            <p><strong>Dietary Preferences: {profile.dietary_requirements.join(", ")}</strong></p>
+            <p><strong>Cuisine Preferences: {profile.dietary_preferences.join(", ")}</strong></p>
+
+            <button className="follow-button" onClick={handleFollowToggle}>
+              {profile.is_following ? "Unfollow" : "Follow"}
+            </button>
+          </div>
         </div>
+
       </div>
     </div>
   );

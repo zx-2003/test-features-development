@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { accountsApi } from "../api/social";
+import "../styles/Map.css"
 
 export default function PlaceSearchBar({ onResults, filters }) {
 
@@ -77,7 +78,7 @@ export default function PlaceSearchBar({ onResults, filters }) {
   }
 
   return (
-    <div>
+    <div className="map-bar">
       <form onSubmit={handleSearch}
         style={{
           all: "unset",
